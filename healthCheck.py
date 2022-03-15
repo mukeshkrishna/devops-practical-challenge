@@ -22,7 +22,7 @@ def healthCheck(url):
         print(f"{now} :: URL {url} not reachable")
 
 def job():
-    url = f"http://{PUBLIC_IP}:80/"
+    url = f"http://{PUBLIC_IP}:{PORT}/"
     healthCheck(url)
 
 if __name__ == "__main__":
