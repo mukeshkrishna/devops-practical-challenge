@@ -1,0 +1,12 @@
+---
+- name: configure / Update yum packages
+  vars:
+    ansible_python_interpreter: /usr/bin/python2
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: Installing python packages in Ansible
+  pip:
+    name: boto3,botocore,requests,docker

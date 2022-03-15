@@ -1,0 +1,36 @@
+---
+- name: install docker
+  vars:
+    ansible_python_interpreter: /usr/bin/python2
+  yum:
+    name='docker'
+    state=latest
+
+- name: service docker
+  service:
+    name=docker
+    state=started
+    enabled=yes
+
+- name: adding existing user ec2-user to group docker
+  user:
+    name: ec2-user
+    groups: docker
+    append: yes
+
+- name: reset ssh connection
+  meta: reset_connection
+
+- name: pull an image
+  docker_image:
+    name: mukeshdevops/galewebserver
+    source: pull
+
+- name: deploy nginx docker container
+  docker_container:
+    image: mukeshdevops/galewebserver
+    name: galewebserver
+    state: started
+    auto_remove: true
+    ports:
+      - "80:80"
